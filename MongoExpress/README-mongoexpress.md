@@ -1,54 +1,48 @@
-# MongoDB con Mongo-Express
+# MongoDB with Mongo-Express
 
-Esta subcarpeta contiene un conjunto de instrucciones para crear un entorno de base de datos MongoDB con una interfaz web proporcionada por Mongo-Express.
+This folder contains instructions to set up a **MongoDB environment with a web interface** provided by Mongo-Express.
 
-## Uso
+## Usage
 
-### Puesta en marcha
+### Starting the Containers
 
-1. **Posiciónate en la carpeta**: Abre tu terminal y ve a la carpeta donde se encuentra el archivo `docker-compose.yml`.
+1. **Navigate to this folder**  
+   Open your terminal and go to the folder containing the `docker-compose.yml` file.
 
-2. **Ejecuta el comando**:
+2. **Run the command**:
 
-   ```bash
-   docker compose up -d
-   ```
+        docker compose up -d
 
-   **Explicación**: Este comando descargará las imágenes de MongoDB y Mongo-Express, iniciará los contenedores y configurará el entorno para su uso.
+**Explanation**: This command will download the MongoDB and Mongo-Express images, start the containers, and configure the environment.
 
-### Acceso a MongoDB
+### Accessing MongoDB
 
-- **URL de acceso**: MongoDB se ejecuta en `mongodb://localhost:27017`.
-- **Credenciales**:
-  - **Usuario**: `admin`
-  - **Contraseña**: `admin123`
+* **Host**: `mongodb://localhost:27017`
+* **Credentials**:
+  * **User**: `admin`
+  * **Password**: `admin123`
 
-Puedes utilizar cualquier cliente MongoDB, como MongoDB Compass o la línea de comandos `mongosh`, para conectarte usando estas credenciales. Por ejemplo:
+You can connect using any MongoDB client, such as **MongoDB Compass** or the command line `mongosh`:
 
-   ```bash
-   mongosh mongodb://admin:admin123@localhost:27017
-   ```
+     mongosh mongodb://admin:admin123@localhost:27017
 
-Si usas IntelliJ o Visual Studio Code, también puedes descargar un plugin para facilitar la gestión de bases de datos:
-- Para IntelliJ, puedes usar **Database Navigator**.
-- Para Visual Studio Code, instala **MongoDB for VS Code**.
+For IDE integration:
 
-### Acceso a Mongo-Express
+* **IntelliJ**: use **Database Navigator** plugin
+* **Visual Studio Code**: install **MongoDB for VS Code**
 
-- **URL de acceso**: Mongo-Express está disponible en `http://localhost:8081`.
-- **Credenciales de Mongo-Express**:
-  - **Usuario**: `admin`
-  - **Contraseña**: `pass`
+### Accessing Mongo-Express
 
-La interfaz web permite explorar y gestionar las bases de datos de forma sencilla.
+* **URL**: `http://localhost:8081`
+* **Credentials**:
+  * **User**: `admin`
+  * **Password**: `pass`
 
----
+The web interface allows you to easily explore and manage your MongoDB databases.
 
-## Explicación
+## Explanation
 
 ### docker-compose.yml
-
-El archivo `docker-compose.yml` define cómo se deben ejecutar los contenedores y sus configuraciones específicas.
 
 ```yaml
 services:
@@ -81,33 +75,39 @@ volumes:
 
 ---
 
-### Detalles de la configuración
+### Configuration Details
 
 1. **MongoDB**:
-   - `image: mongo:latest`: Utiliza la última imagen oficial de MongoDB.
-   - `container_name: mongodb_container`: Nombre asignado al contenedor de MongoDB.
-   - `ports`: Mapea el puerto `27017` del contenedor al puerto `27017` de la máquina local, permitiendo conexiones desde el host.
-   - `environment`: Configura las credenciales del administrador:
-     - `MONGO_INITDB_ROOT_USERNAME`: Usuario administrador.
-     - `MONGO_INITDB_ROOT_PASSWORD`: Contraseña del administrador.
-   - `volumes`: Utiliza un volumen persistente (`mongodb_data`) para asegurar que los datos de MongoDB no se pierdan al detener o eliminar el contenedor.
+
+   * `image: mongo:latest`: Uses the latest official MongoDB image.
+   * `container_name: mongodb_container`: Names the MongoDB container.
+   * `ports`: Maps container port `27017` to the host machine.
+   * `environment`: Sets the administrator credentials:
+
+     * `MONGO_INITDB_ROOT_USERNAME`: Admin user
+     * `MONGO_INITDB_ROOT_PASSWORD`: Admin password
+   * `volumes`: Uses a persistent volume (`mongodb_data`) to store database data.
 
 2. **Mongo-Express**:
-   - `image: mongo-express:latest`: Utiliza la última imagen oficial de Mongo-Express.
-   - `container_name: mongo_express`: Nombre asignado al contenedor de Mongo-Express.
-   - `depends_on`: Garantiza que el contenedor de MongoDB se inicie antes que el de Mongo-Express.
-   - `ports`: Mapea el puerto `8081` del contenedor al puerto `8081` de la máquina local, permitiendo acceso a la interfaz web.
-   - `environment`: Configura las credenciales de acceso a la base de datos y el servidor MongoDB:
-     - `ME_CONFIG_MONGODB_ADMINUSERNAME`: Usuario administrador para acceder a MongoDB desde Mongo-Express.
-     - `ME_CONFIG_MONGODB_ADMINPASSWORD`: Contraseña del administrador.
-     - `ME_CONFIG_MONGODB_SERVER`: Nombre del servicio de MongoDB (debe coincidir con el nombre del contenedor o servicio en `docker-compose.yml`).
 
-3. **Volúmenes**:
-   - `mongodb_data`: Define un volumen persistente para MongoDB que almacena los datos de la base de datos en el host.
+   * `image: mongo-express:latest`: Uses the latest official Mongo-Express image.
+   * `container_name: mongo_express`: Names the Mongo-Express container.
+   * `depends_on`: Ensures MongoDB starts before Mongo-Express.
+   * `ports`: Maps container port `8081` to host port `8081` for web access.
+   * `environment`: Configures admin credentials and MongoDB server:
+
+     * `ME_CONFIG_MONGODB_ADMINUSERNAME`: Admin user for Mongo-Express
+     * `ME_CONFIG_MONGODB_ADMINPASSWORD`: Admin password for Mongo-Express
+     * `ME_CONFIG_MONGODB_SERVER`: Service name of the MongoDB container
+
+3. **Volumes**:
+
+   * `mongodb_data`: Persistent volume for MongoDB database data.
 
 ---
 
-### Notas adicionales
+> [!NOTE]  
+> Make sure ports `27017` and `8081` are free on your machine before starting the containers.
 
-- Asegúrate de que los puertos `27017` y `8081` estén libres en tu máquina antes de ejecutar el entorno.
+> Mongo-Express depends on MongoDB being up and running, so don’t stop MongoDB while using the web interface.
 

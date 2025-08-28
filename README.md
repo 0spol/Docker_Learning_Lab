@@ -1,86 +1,81 @@
-## Presentación
+# 🐳 Docker Learning Lab
 
-Este `README.md` sirve para conocer, en términos generales, lo que se necesita para usar las máquinas, la organización del repositorio y una pequeña introducción a Docker para que sepas lo mínimo necesario para utilizarlo.
+Welcome! 👋  
 
-## Organización del repositorio
+This repository is designed as a **learning resource** to help you practice Docker and Docker Compose using real-world examples with databases, admin tools, and a simple Java application.  
 
-Este repositorio tendrá una subcarpeta por cada máquina virtual en Docker que monte, y junto a los archivos de esa subcarpeta habrá un archivo `README.md` explicando cómo usar esa máquina y una breve explicación de su funcionamiento.
+Whether you are new to Docker or looking to reinforce your knowledge, this repo provides a guided path with hands-on exercises.  
 
-#### Mapa de máquinas 
 
-- **Java/** 🐧: Máquina virtual con un entorno Linux para **PSP**.
-- **Mongo/** 🥭: Máquina configurada para **AD**.
-- **MySQL/** 🗄️: Máquina configurada para **AD**.
-- **Oracle/** 🏛️: Máquina configurada para **AD**.
-- **PHPMyAdmin/** 🖥️: Máquina para gestionar bases de datos **MySQL** através de PHPMyAdmin para **AD**.
+## 📚 Learning Path
 
-## Conceptos mínimos de Docker
+Follow the steps in order to gradually build your Docker skills:
 
-- **Imagen**  
-  Un archivo de solo lectura que contiene instrucciones, se podría asemejar a un molde.
+1. **Start with the basics**  
+   - [MySQL](./MySQL/README-mysql.md) 🗄️  
+   Learn how to run a relational database in Docker and connect to it.  
 
-- **Contenedor**  
-  Una instancia en ejecución de una imagen, se podría asemejar a usar ese molde (imagen) y crear una figura.
+2. **Explore PostgreSQL**  
+   - [Postgres](./Postgres/README-posgres.md) 🗄️  
+   Practice with initialization scripts, volumes, and configuration files.  
 
-- **Volumen**  
-  Es un espacio de almacenamiento persistente que puede ser utilizado por los contenedores para guardar datos.
+3. **Work with NoSQL**  
+   - [Mongo](./Mongo/README-mongo.md) 🥭  
+   - [Mongo Express](./MongoExpress/README-mongoexpress.md) 🥭  
+      Run MongoDB and manage it through a web client.  
 
-## Requisitos
+4. **Try Oracle**  
+   - [Oracle](./Oracle/README-oracle.md) 🏛️  
+   Experiment with a containerized Oracle database.  
 
-### Instalación de Docker 
+5. **Add Administration Tools**  
+   - [PHPMyAdmin](./PHPMyAdmin/README-phpmyadmin.md) 🖥️  
+   Manage MySQL databases easily with a browser interface.  
 
-- [Docker Desktop](https://www.docker.com/get-started)
+6. **Run an Application in Docker**  
+   - [Java](./Java/README-java.md) 🐧  
+   Deploy a simple Java application inside a container.  
 
-### Clonar el Repositorio
+7. **Extra Tools**  
+   - [Utils](./Utils/README-utils.md) 🧰
+   Miscellaneous utilities and helper containers.  
 
-```bash
-git clone https://github.com/0spol/Docker.git
-```
+## 🧩 Key Docker Concepts
 
-### Clonar el Repositorio como Submódulo
+Before diving in, let’s review a few basic terms:
 
-Para mantener el código del repositorio **Docker** actualizado en tu proyecto, puedes agregarlo como un submódulo.
+- **Image** → A read-only template with instructions (like a mold).  
+- **Container** → A running instance of an image (like an object created from the mold).  
+- **Volume** → A persistent storage space that containers can use to save data.  
 
-1. **Agrega el submódulo**
+---
+
+## 🛠 Requirements
+
+1. **Install Docker**  
+   - [Download Docker Desktop](https://www.docker.com/get-started)  
+
+2. **Clone the Repository**  
    ```bash
-   git submodule add https://github.com/0spol/Docker.git docker
-   ```
-   Esto creará una carpeta llamada `docker` que estará vinculada al repositorio externo.
-
-2. **Inicializa el submódulo**  
-   Asegúrate de que el submódulo esté correctamente inicializado.
-   ```bash
-   git submodule update --init --recursive
-   ```
-
-3. **Realiza un commit de la configuración del submódulo**  
-   Registra los cambios en tu repositorio principal.
-   ```bash
-   git add .gitmodules docker
-   git commit -m "Añadido submódulo docker"
-   git push origin main
-   ```
-
-##### Actualización del Submódulo
-
-Si el repositorio **Docker** recibe actualizaciones, sigue estos pasos para mantener tu submódulo al día:
-
-1. **Accede al directorio del submódulo**.
-2. **Obtén los últimos cambios**
-   ```bash
-   git pull origin main
+   git clone https://github.com/0spol/Docker.git
+   
+   cd Docker
    ```
 
-##### Clonación del Repositorio con el Submódulo
+3. **Follow the README inside each folder** 
 
-Si deseas clonar tu repositorio junto con el submódulo, utiliza el siguiente comando:
-```bash
-git clone --recurse-submodules https://github.com/tu-usuario/tu-repositorio.git
-```
+## 🚀 Contributing
 
-Si ya has clonado el repositorio sin los submódulos, puedes inicializarlos con:
-```bash
-git submodule update --init --recursive
-```
-> [!IMPORTANT]
->  Si usas submódulos, los cambios que hagas en local no podrás llevarlos a tu repositorio principal, ya que el submódulo pertenece a otra persona.
+Contributions are welcome! 🎉
+
+### 🔧 [Contributing Guide](./CONTRIBUTING.md)
+
+Learn how to report bugs, request features, and contribute.
+
+### 📜 [Code of Conduct](./CODE_OF_CONDUCT.md)
+
+Please follow our Code of Conduct to maintain a respectful and productive environment.
+
+## 📄 License
+
+This project is licensed under the [Apache 2.0 License](./LICENSE.md).

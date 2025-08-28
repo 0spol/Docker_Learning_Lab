@@ -1,36 +1,33 @@
-# Máquina Java
+# Java Machine
 
-Esta subcarpeta contiene un conjunto de instrucciones para crear un contenedor que pueda ejecutar programas de Java.
+This folder contains instructions to set up a **containerized environment for running Java programs**.
 
-## Uso
+## Usage
 
-### Puesta en marcha
+### Starting the Container
 
-1. **Posiciónate en la carpeta**: Abre tu terminal y ve a la carpeta donde se encuentra el archivo `docker-compose.yml`.
+1. **Navigate to this folder**  
+   Open your terminal and go to the folder containing the `docker-compose.yml` file.
 
-2. **Ejecuta el comando**
+2. **Run the command**:
 
-   ```bash
-   docker-compose up
-   ```
+        docker-compose up
 
-   **Explicación**: Este comando descargará las imágenes necesarias, arrancará los contenedores y ejecutará la aplicación definida en `Main.java`.
+**Explanation**: This command will download the necessary images, start the container, and run the Java application defined in `Main.java`.
 
-### Volver a poner en marcha
+### Restarting the Application
 
-Si deseas volver a probar tu aplicación con otros cambios, es necesario desmontar todo antes de reiniciar.
+If you want to test your application with new changes, you need to stop and rebuild the container.
 
-1. **Detener los contenedores y eliminar imágenes**
+1. **Stop the containers and remove images**:
 
-   ```bash
-   docker-compose down --rmi all
-   ```
+        docker-compose down --rmi all
 
-## Explicación
+## Explanation
 
-#### Dockerfile
+### Dockerfile
 
-El archivo `Dockerfile` se utiliza para construir la imagen de la aplicación Java.
+The `Dockerfile` is used to build the Java application image.
 
 ```Dockerfile
 FROM openjdk:17-jdk-alpine
@@ -44,9 +41,19 @@ COPY ./src /app/src
 CMD ["java", "src/Main.java"]
 ```
 
-#### docker-compose.yml
+**Key Points**:
 
-El archivo `docker-compose.yml` define cómo se deben ejecutar los contenedores.
+* `FROM openjdk:17-jdk-alpine`: Uses a lightweight OpenJDK 17 image.
+* `RUN apk add --no-cache bash`: Installs `bash` in the container.
+* `WORKDIR /app`: Sets the working directory inside the container.
+* `COPY ./src /app/src`: Copies your source code into the container.
+* `CMD ["java", "src/Main.java"]`: Command to run the Java application.
+
+---
+
+### docker-compose.yml
+
+The `docker-compose.yml` file defines how to run the container.
 
 ```yaml
 services:
@@ -57,18 +64,10 @@ services:
     tty: true
 ```
 
-##### Detalles de la configuración
+**Key Points**:
 
-- **Dockerfile**:
-  - `FROM openjdk:17-jdk-alpine`: Utiliza una imagen base de Java 17.
-  - `RUN apk add --no-cache bash`: Instala `bash` en la imagen.
-  - `WORKDIR /app`: Establece el directorio de trabajo en el contenedor.
-  - `COPY ./src /app/src`: Copia el código fuente al contenedor.
-  - `CMD ["java", "src/Main.java"]`: Comando para ejecutar la aplicación Java.
-
-- **docker-compose.yml**:
-  - `services`: Define los servicios que se ejecutarán en el contenedor.
-  - `java`: Nombre del servicio.
-  - `build: .`: Indica que debe construir la imagen a partir del `Dockerfile` en el directorio actual.
-  - `container_name: java-app`: Asigna un nombre al contenedor.
-  - `stdin_open: true` y `tty: true`: Permiten la interacción con la consola.
+* `services`: Defines the services that run inside the container.
+* `java`: Service name.
+* `build: .`: Builds the image from the Dockerfile in the current directory.
+* `container_name: java-app`: Assigns a name to the container.
+* `stdin_open: true` and `tty: true`: Allow interactive console access inside the container.

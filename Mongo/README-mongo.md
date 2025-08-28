@@ -1,68 +1,75 @@
 # MongoDB
 
-Esta subcarpeta contiene un conjunto de instrucciones para crear un entorno de base de datos MongoDB.
+This folder contains instructions to set up a **MongoDB database environment**.
 
-## Uso
+## Usage
 
-### Puesta en marcha
+### Starting the Container
 
-1. **Posiciónate en la carpeta**: Abre tu terminal y ve a la carpeta donde se encuentra el archivo `docker-compose.yml`.
+1. **Navigate to this folder**  
+   Open your terminal and go to the folder containing the `docker-compose.yml` file.
 
-2. **Ejecuta el comando**:
+2. **Run the command**:
 
-   ```bash
-   docker compose up -d
-   ```
+```bash
+docker compose up -d
+  ```
 
-   **Explicación**: Este comando descargará la imagen de MongoDB, arrancará el contenedor y configurará el entorno para su uso.
+**Explanation**: This command will download the latest MongoDB image, start the container, and configure the database environment.
 
-### Acceso a MongoDB
+---
 
-- **URL de acceso**: MongoDB se ejecuta en `mongodb://localhost:27017`.
-- **Credenciales**:
-  - **Usuario**: `admin`
-  - **Contraseña**: `admin123`
-  
-Puedes utilizar cualquier cliente MongoDB, como MongoDB Compass o la línea de comandos `mongo`, para conectarte usando estas credenciales.
+### Accessing MongoDB
 
-Recomiendo usar **MongoSH** por línea de comandos.
+* **Host**: `localhost:27017`
+* **Database**: `test` (default)
+* **Authentication**:
 
-  ```bash
-   mongosh mongodb://admin:admin123@localhost:27017
-   ```
+  * If authentication is enabled, use the credentials defined in your `docker-compose.yml` file.
+  * For learning purposes, you can start with no authentication or a simple username/password.
 
-Si usas IntelliJ o Visual Studio, también puedes descargar un plugin para facilitar la gestión de bases de datos. Para IntelliJ, se puede utilizar **Database Navigator**, y para Visual Studio, **MongoDB for VS Code**.
+You can connect using any MongoDB client, such as **Mongo Shell**, **Mongo Compass**, or IDE plugins.
 
-## Explicación
+For IDE integration:
 
-### docker-compose.yml
+* **IntelliJ**: use **Database Navigator** plugin
+* **Visual Studio**: use **MongoDB for Visual Studio** or **NoSQL Manager**
 
-El archivo `docker-compose.yml` define cómo se debe ejecutar el contenedor y su configuración específica.
+## Docker Configuration
+
+### docker-compose.yml Overview
 
 ```yaml
 services:
-  mongodb:
+  mongo:
     image: mongo:latest
-    container_name: mongodb_container
+    container_name: mongo
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
     volumes:
-      - mongodb_data:/data/db
+      - mongo_data:/data/db
 
 volumes:
-  mongodb_data:
+  mongo_data:
 ```
 
-### Detalles de la configuración
+**Explanation**:
 
-- **MongoDB**:
-  - `image: mongo:latest`: Utiliza la última imagen de MongoDB.
-  - `container_name: mongodb_container`: Asigna un nombre al contenedor de MongoDB.
-  - `ports`: Mapea el puerto `27017` del contenedor al puerto `27017` de la máquina local, permitiendo conexiones desde el host.
-  - `environment`: Define las variables de entorno necesarias para la configuración de la base de datos:
-    - `MONGO_INITDB_ROOT_USERNAME`: Nombre de usuario para el administrador.
-    - `MONGO_INITDB_ROOT_PASSWORD`: Contraseña para el administrador.
-  - `volumes`: Utiliza un volumen persistente para almacenar los datos de MongoDB, asegurando que no se pierdan cuando el contenedor se detiene o se elimina.
+* `image: mongo:latest`: Uses the latest MongoDB image.
+* `container_name: mongo`: Names the container.
+* `ports`: Maps container port `27017` to the host, allowing local connections.
+* `environment`: Sets environment variables for the root user.
+* `volumes`: Persists database data using a Docker volume.
+
+---
+
+### Optional Initialization Scripts
+
+You can add custom scripts to initialize your database:
+
+* Place `.js` or `.sh` files inside `/docker-entrypoint-initdb.d/`.
+* They will run automatically when the container is first started.
+* Example: creating initial collections or inserting test data.

@@ -1,29 +1,105 @@
 # PostgreSQL
 
-Esta subcarpeta contiene un conjunto de instrucciones para crear un entorno de base de datos PostgreSQL.
+This folder contains instructions to set up a **PostgreSQL database environment**, including a custom configuration.
 
-## Uso
+## Usage
 
-### Puesta en marcha
+### Starting the Container
 
-1. **Posiciónate en la carpeta**: Abre tu terminal y navega a la carpeta donde se encuentra el archivo `docker-compose.yml`.
+1. **Navigate to this folder**  
+   Open your terminal and go to the folder containing the `docker-compose.yml` file.
 
-2. **Ejecuta el comando**:
+2. **Run the command**:
 
-   ```bash
-   docker compose up -d
-   ```
+```bash
+docker compose up -d
+  ```
 
-   **Explicación**: Este comando descargará la imagen de PostgreSQL, arrancará el contenedor y configurará el entorno para su uso.
+**Explanation**: This command will download the PostgreSQL image, start the container, and configure the database environment.
 
-### Acceso a PostgreSQL
+---
 
-- **URL de acceso**: PostgreSQL se ejecuta en `http://localhost:5432`.
-- **Credenciales**:
-  - **Usuario**: `postgres`
-  - **Contraseña**: `postgres`
-  - **Base de datos**: `postgres`
-  
-Puedes utilizar cualquier cliente PostgreSQL, como **pgAdmin**, **DBeaver** o la línea de comandos (`psql`), para conectarte usando estas credenciales.
+### Accessing PostgreSQL
 
-Si usas IntelliJ o Visual Studio, recomiendo descargar un plugin para facilitar la gestión de bases de datos. Para IntelliJ, se puede utilizar **Database Navigator**, y para Visual Studio, **JDBC Client**.
+* **Host**: `localhost:5432`
+* **Credentials**:
+
+  * **User**: `postgres`
+  * **Password**: `postgres`
+  * **Database**: `postgres`
+
+You can connect using any PostgreSQL client, such as **pgAdmin**, **DBeaver**, or the command line (`psql`).
+
+For IDE integration:
+
+* **IntelliJ**: use **Database Navigator** plugin
+* **Visual Studio**: use **JDBC Client**
+
+## Custom Docker Configuration
+
+### Dockerfile Instructions
+
+* `FROM postgres:latest` → Uses the latest official PostgreSQL image as the base.
+* `COPY pg_hba.conf /custom-config/pg_hba.conf` → Copies your custom authentication configuration into the container.
+* `COPY init.sh /docker-entrypoint-initdb.d/init.sh` → Adds an initialization script that runs when the container starts.
+* `RUN chmod +x /docker-entrypoint-initdb.d/init.sh` → Makes the script executable.
+* `ENV PGDATA=/var/lib/postgresql/data/pgdata` → Defines the directory where PostgreSQL stores its data.
+
+### init.sh Script
+
+This script executes during container startup:
+
+```bash
+#!/bin/bash
+set -e
+
+if [ -f "$PGDATA/pg_hba.conf" ]; then
+    mv "$PGDATA/pg_hba.conf" "$PGDATA/pg_hba_old.conf"
+    cp /custom-config/pg_hba.conf "$PGDATA/pg_hba.conf"
+fi
+
+exec "$@"
+```
+
+**Explanation**:
+
+* Checks if a `pg_hba.conf` file exists in the data directory.
+* If it exists, renames the old file and replaces it with the custom one.
+* Executes the default PostgreSQL entrypoint.
+
+---
+
+### pg\_hba.conf Overview
+
+`pg_hba.conf` controls **client authentication** in PostgreSQL. Key points:
+
+* Defines **who can connect**, **how**, and **to which databases**.
+* Connection types:
+
+  * `local` → Unix domain socket
+  * `host` → TCP/IP connection
+  * `hostssl` → TCP/IP with SSL
+  * `hostnossl` → TCP/IP without SSL
+* Authentication methods: `trust`, `md5`, `password`, `scram-sha-256`, etc.
+* Example configuration included in this project:
+
+```text
+# Local connections
+local   all             all                                     trust
+
+# IPv4 and IPv6 local connections
+host    all             all             127.0.0.1/32            trust
+host    all             all             ::1/128                 trust
+
+# Replication connections from localhost
+local   replication     all                                     trust
+host    replication     all             127.0.0.1/32            trust
+host    replication     all             ::1/128                 trust
+
+# All remote connections (for learning purposes)
+host all all all scram-sha-256
+host all all 0.0.0.0/0 md5
+```
+
+**Caution**: For local learning environments, `trust` is fine.
+For production, use stronger authentication methods and restrict remote access.

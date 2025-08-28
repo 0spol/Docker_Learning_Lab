@@ -1,29 +1,36 @@
 # Oracle Database
 
-Esta subcarpeta contiene un conjunto de instrucciones para crear un entorno de base de datos para Oracle Database.
+This folder contains instructions to set up an **Oracle Database environment**.
 
-## Uso
+## Usage
 
-### Puesta en marcha
+### Starting the Container
 
-1. **Posiciónate en la carpeta**: Abre tu terminal y ve a la carpeta donde se encuentra el archivo `docker-compose.yml`.
+1. **Navigate to this folder**  
+   Open your terminal and go to the folder containing the `docker-compose.yml` file.
 
-2. **Ejecuta el comando**:
+2. **Run the command**:
 
-   ```bash
-   docker compose up -d
-   ```
+        docker compose up -d
 
-### Acceso a Oracle Database
+**Explanation**: This command will download the Oracle Database image, start the container, and configure the database environment.
 
-- **URL de acceso**: Oracle Database se ejecuta en `localhost:1521`.
-- **Credenciales**:
-  - **Usuario SYS**: `SYS`
-  - **Contraseña**: `mysecurepassword`
-  - **Base de datos**: `mydatabase`
-  - **Usuario adicional**: `myuser`
-  - **Contraseña del usuario adicional**: `userpassword`
-  
-Puedes utilizar cualquier cliente de Oracle, como SQL Developer o DBeaver, para conectarte usando estas credenciales.
+---
 
-Si usas IntelliJ o Visual Studio, recomiendo descargar un plugin para facilitar la gestión de bases de datos. Para IntelliJ, se puede utilizar **Database Navigator**, y para Visual Studio, **JDBC Client**.
+### Accessing Oracle Database
+
+* **Host**: `localhost:1521`
+* **Credentials**:
+
+  * **SYS User**: `SYS`
+  * **SYS Password**: `mysecurepassword`
+  * **Database**: `mydatabase`
+  * **Additional User**: `myuser`
+  * **Additional User Password**: `userpassword`
+
+You can connect using any Oracle client, such as **SQL Developer** or **DBeaver**.
+
+For IDE integration:
+
+* **IntelliJ**: use **Database Navigator** plugin
+* **Visual Studio**: use **JDBC Client**

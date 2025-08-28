@@ -1,40 +1,47 @@
 # MySQL
 
-Esta subcarpeta contiene un conjunto de instrucciones para crear un entorno de base de datos MySQL.
+This folder contains instructions to set up a **MySQL database environment**.
 
-## Uso
+## Usage
 
-### Puesta en marcha
+### Starting the Container
 
-1. **Posiciónate en la carpeta**: Abre tu terminal y ve a la carpeta donde se encuentra el archivo `docker-compose.yml`.
+1. **Navigate to this folder**  
+   Open your terminal and go to the folder containing the `docker-compose.yml` file.
 
-2. **Ejecuta el comando**:
+2. **Run the command**:
 
    ```bash
    docker compose up -d
    ```
 
-   **Explicación**: Este comando descargará la imagen de MySQL, arrancará el contenedor y configurará el entorno para su uso.
+**Explanation**: This command will download the MySQL image, start the container, and configure the database environment.
 
-### Acceso a MySQL
+---
 
-- **URL de acceso**: MySQL se ejecuta en `http://localhost:3306`.
-- **Credenciales**:
-  - **Usuario**: `root`
-  - **Contraseña**: `rootpassword`
-  - **Base de datos**: `my_database`
-  - **Usuario restringido**: `user`
-  - **Contraseña del usuario restringido**: `userpassword`
-  
-Puedes utilizar cualquier cliente MySQL, como MySQL Workbench o la línea de comandos, para conectarte usando estas credenciales. 
+### Accessing MySQL
 
-Si usas IntelliJ o Visual Studio, recomiendo descargar un plugin para facilitar la gestión de bases de datos. Para IntelliJ, se puede utilizar **Database Navigator**, y para Visual Studio, **JDBC Client**.
+* **Host**: `localhost:3306`
+* **Credentials**:
 
-## Explicación
+  * **Root user**: `root`
+  * **Root password**: `rootpassword`
+  * **Database**: `my_database`
+  * **Limited user**: `user`
+  * **Limited user password**: `userpassword`
+
+You can connect using any MySQL client, such as **MySQL Workbench** or the command line.
+
+For IDE integration:
+
+* **IntelliJ**: use **Database Navigator** plugin
+* **Visual Studio**: use **JDBC Client**
+
+## Explanation
 
 ### docker-compose.yml
 
-El archivo `docker-compose.yml` define cómo se debe ejecutar el contenedor y su configuración específica.
+The `docker-compose.yml` file defines how the container runs and its configuration:
 
 ```yaml
 services:
@@ -55,15 +62,17 @@ volumes:
   mysql_data:
 ```
 
-### Detalles de la configuración
+### Configuration Details
 
-- **MySQL**:
-  - `image: mysql:latest`: Utiliza la última imagen de MySQL.
-  - `container_name: mysql`: Asigna un nombre al contenedor de MySQL.
-  - `ports`: Mapea el puerto `3306` del contenedor al puerto `3306` de la máquina local, permitiendo conexiones desde el host.
-  - `environment`: Define las variables de entorno necesarias para la configuración de la base de datos:
-    - `MYSQL_ROOT_PASSWORD`: Contraseña del usuario root.
-    - `MYSQL_DATABASE`: Nombre de la base de datos inicial.
-    - `MYSQL_USER`: Nombre de un usuario adicional.
-    - `MYSQL_PASSWORD`: Contraseña del usuario adicional.
-  - `volumes`: Utiliza un volumen persistente para almacenar los datos de MySQL, asegurando que no se pierdan cuando el contenedor se detiene o se elimina.
+* **MySQL Service**:
+
+  * `image: mysql:latest`: Uses the latest MySQL image.
+  * `container_name: mysql`: Assigns a name to the container.
+  * `ports`: Maps container port `3306` to the host machine, enabling local connections.
+  * `environment`: Sets environment variables for database configuration:
+
+    * `MYSQL_ROOT_PASSWORD`: Root user's password.
+    * `MYSQL_DATABASE`: Name of the initial database.
+    * `MYSQL_USER`: Name of an additional user.
+    * `MYSQL_PASSWORD`: Password for the additional user.
+  * `volumes`: Persists MySQL data using a volume to ensure data is not lost when the container stops or is removed.
