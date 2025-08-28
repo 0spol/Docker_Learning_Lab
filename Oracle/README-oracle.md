@@ -30,7 +30,8 @@ This folder contains instructions to set up an **Oracle Database environment**.
 
 You can connect using any Oracle client, such as **SQL Developer** or **DBeaver**.
 
-For IDE integration:
 
-* **IntelliJ**: use **Database Navigator** plugin
-* **Visual Studio**: use **JDBC Client**
+> [!TIP]
+>For IDE integration:
+>* **IntelliJ**: use **Database Navigator** plugin.
+>* **Visual Studio**: use **JDBC Client**.

@@ -26,10 +26,10 @@ You can connect using any MongoDB client, such as **MongoDB Compass** or the com
 
      mongosh mongodb://admin:admin123@localhost:27017
 
-For IDE integration:
-
-* **IntelliJ**: use **Database Navigator** plugin
-* **Visual Studio Code**: install **MongoDB for VS Code**
+> [!TIP]
+>For IDE integration:
+>* **IntelliJ**: use **Database Navigator** plugin.
+>* **Visual Studio Code**: install **MongoDB for VS Code**.
 
 ### Accessing Mongo-Express
 
@@ -107,6 +107,6 @@ volumes:
 ---
 
 > [!IMPORTANT]  
-> Make sure ports `27017` and `8081` are free on your machine before starting the containers.
-> Mongo-Express depends on MongoDB being up and running, so don’t stop MongoDB while using the web interface.
+>*Make sure ports `27017` and `8081` are free on your machine before starting the containers.
+>*Mongo-Express depends on MongoDB being up and running, so don’t stop MongoDB while using the web interface.
 

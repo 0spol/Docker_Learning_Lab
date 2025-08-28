@@ -30,10 +30,10 @@ docker compose up -d
 
 You can connect using any MongoDB client, such as **Mongo Shell**, **Mongo Compass**, or IDE plugins.
 
-For IDE integration:
-
-* **IntelliJ**: use **Database Navigator** plugin
-* **Visual Studio**: use **MongoDB for Visual Studio** or **NoSQL Manager**
+> [!TIP]
+>For IDE integration:
+>* **IntelliJ**: use **Database Navigator** plugin.
+>* **Visual Studio**: use **MongoDB for Visual Studio** or **NoSQL Manager**.
 
 ## Docker Configuration
 

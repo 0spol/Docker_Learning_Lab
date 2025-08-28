@@ -32,10 +32,11 @@ This folder contains instructions to set up a **MySQL database environment**.
 
 You can connect using any MySQL client, such as **MySQL Workbench** or the command line.
 
-For IDE integration:
 
-* **IntelliJ**: use **Database Navigator** plugin
-* **Visual Studio**: use **JDBC Client**
+> [!TIP]
+>For IDE integration:
+>* **IntelliJ**: use **Database Navigator** plugin.
+>* **Visual Studio**: use **JDBC Client**.
 
 ## Explanation
 

@@ -30,10 +30,10 @@ docker compose up -d
 
 You can connect using any PostgreSQL client, such as **pgAdmin**, **DBeaver**, or the command line (`psql`).
 
-For IDE integration:
-
-* **IntelliJ**: use **Database Navigator** plugin
-* **Visual Studio**: use **JDBC Client**
+> [!TIP]
+>For IDE integration:
+>* **IntelliJ**: use **Database Navigator** plugin.
+>* **Visual Studio**: use **JDBC Client**.
 
 ## Custom Docker Configuration
 
