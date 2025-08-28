@@ -66,10 +66,8 @@ volumes:
 
 ---
 
-### Optional Initialization Scripts
-
-You can add custom scripts to initialize your database:
-
-* Place `.js` or `.sh` files inside `/docker-entrypoint-initdb.d/`.
-* They will run automatically when the container is first started.
-* Example: creating initial collections or inserting test data.
+> [!TIP]
+>You can add custom scripts to initialize your database:
+>* Place `.js` or `.sh` files inside `/docker-entrypoint-initdb.d/`.
+>* They will run automatically when the container is first started.
+>* Example: creating initial collections or inserting test data.

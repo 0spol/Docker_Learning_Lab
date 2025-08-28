@@ -101,5 +101,6 @@ host all all all scram-sha-256
 host all all 0.0.0.0/0 md5
 ```
 
-**Caution**: For local learning environments, `trust` is fine.
-For production, use stronger authentication methods and restrict remote access.
+> [!CAUTION] 
+>For local learning environments, `trust` is fine.
+>For production, use stronger authentication methods and restrict remote access.
