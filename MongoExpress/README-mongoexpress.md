@@ -107,6 +107,6 @@ volumes:
 ---
 
 > [!IMPORTANT]  
->*Make sure ports `27017` and `8081` are free on your machine before starting the containers.
->*Mongo-Express depends on MongoDB being up and running, so don’t stop MongoDB while using the web interface.
+>* Make sure ports `27017` and `8081` are free on your machine before starting the containers.
+>* Mongo-Express depends on MongoDB being up and running, so don’t stop MongoDB while using the web interface.
 
